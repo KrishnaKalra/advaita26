@@ -1,0 +1,290 @@
+/* Navbar.module.css */
+
+/* ---------- VARIABLES ---------- */
+:root {
+  --wire-black: #1a1a1a;
+  --bulb-off: #2a1111;
+  --bulb-on: #ff1a1a;
+  --glow-color: rgba(255, 30, 30, 0.6);
+  --wall-dark: #080303;
+}
+
+/* ---------- NAVBAR CONTAINER ---------- */
+.navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2000;
+  transition: margin-top 0.4s ease, background-color 0.4s ease;
+  border-bottom: 4px solid #000;
+  box-shadow: 0 10px 40px #000;
+
+  /* Rotting Wallpaper Texture */
+  background-color: var(--wall-dark);
+  background-image: 
+    radial-gradient(circle at 50% 50%, transparent 20%, #000 120%),
+    radial-gradient(circle at 10% 10%, rgba(60, 20, 20, 0.1) 10%, transparent 20%),
+    url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.08'/%3E%3C/svg%3E");
+}
+
+.container {
+  width: 100%;
+  max-width: 1200px;
+  padding: 0 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 100%;
+  position: relative;
+}
+
+/* ---------- LOGO ---------- */
+.logo {
+  font-family: 'Stranger Things Outline', serif;
+  font-size: 2rem;
+  color: #888;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  cursor: pointer;
+  text-shadow: 2px 2px 0px #000;
+  opacity: 0.8;
+  transition: all 0.3s;
+  z-index: 1002; /* Always on top */
+  flex-shrink: 0; /* Prevents squashing */
+}
+
+.logo:hover {
+  color: #c41e3a;
+  text-shadow: 0 0 15px #c41e3a;
+  opacity: 1;
+}
+
+/* ---------- DESKTOP LINKS (Bulbs) ---------- */
+.links {
+  display: flex;
+  gap: 3.5rem;
+  position: relative;
+  align-items: flex-start;
+  height: 100%;
+  padding-top: 15px;
+}
+
+/* The Wire */
+.links::before {
+  content: '';
+  position: absolute;
+  top: 25px;
+  left: -20px;
+  right: -20px;
+  height: 3px;
+  background: #111;
+  border-bottom: 1px solid #333;
+  border-radius: 50%;
+  transform: rotate(-0.5deg);
+  z-index: 0;
+  pointer-events: none;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.8);
+}
+
+.linkWrapper {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  z-index: 1;
+  width: 60px;
+}
+
+.bulb {
+  width: 16px;
+  height: 24px;
+  border-radius: 50% 50% 40% 40%;
+  background: var(--bulb-off);
+  transition: background 0.1s, box-shadow 0.1s;
+  box-shadow: inset -2px -2px 5px rgba(0,0,0,0.8);
+  margin-bottom: 12px;
+  position: relative;
+}
+
+.bulb::before {
+  content: '';
+  position: absolute;
+  top: -6px;
+  left: 3px;
+  width: 10px;
+  height: 6px;
+  background: #000;
+  border: 1px solid #222;
+}
+
+.link {
+  background: transparent;
+  border: none;
+  font-family: 'Brush Script MT', 'Courier New', cursive; 
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: #555;
+  cursor: pointer;
+  transition: color 0.2s;
+  text-shadow: 1px 1px 0 rgba(255,255,255,0.05);
+  text-transform: uppercase;
+}
+
+/* Hover Interaction */
+.linkWrapper:hover .bulb {
+  background: var(--bulb-on);
+  box-shadow: 0 0 10px var(--bulb-on), 0 0 40px var(--bulb-on), 0 0 80px var(--glow-color);
+  animation: bulbFlicker 0.1s infinite alternate;
+}
+
+.linkWrapper:hover .link {
+  color: #fff;
+  text-shadow: 0 -5px 15px var(--bulb-on);
+}
+
+@keyframes bulbFlicker {
+  0% { opacity: 1; transform: scale(1); }
+  100% { opacity: 0.8; transform: scale(0.95); }
+}
+
+/* ---------- MOBILE HAMBURGER (The Pull Cord) ---------- */
+.hamburger {
+  display: none; /* Hidden on desktop */
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  z-index: 1002;
+  position: relative;
+  width: 40px;
+  height: 60px;
+  flex-shrink: 0;
+  /* Swinging animation for realism */
+  transform-origin: top center;
+  animation: cordSwing 3s ease-in-out infinite;
+}
+
+@keyframes cordSwing {
+  0%, 100% { transform: rotate(1deg); }
+  50% { transform: rotate(-1deg); }
+}
+
+.pullString {
+  position: absolute;
+  top: -20px; /* Starts inside the navbar header */
+  left: 50%;
+  width: 2px;
+  height: 50px;
+  background: #bbb;
+  transform: translateX(-50%);
+  transition: height 0.2s cubic-bezier(0.5, 1.5, 0.5, 1);
+  box-shadow: 1px 0 2px rgba(0,0,0,0.5);
+}
+
+.pullKnob {
+  position: absolute;
+  bottom: 5px;
+  left: 50%;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: #111;
+  border: 1px solid #444;
+  transform: translateX(-50%);
+  box-shadow: 0 3px 6px #000;
+  transition: transform 0.2s cubic-bezier(0.5, 1.5, 0.5, 1);
+}
+
+/* Pull Interaction */
+.hamburger:active .pullString {
+  height: 65px; /* Stretch */
+}
+.hamburger:active .pullKnob {
+  transform: translateX(-50%) translateY(15px);
+}
+
+/* ---------- MOBILE MENU (Fixed Layering) ---------- */
+.mobileMenu {
+  position: fixed;
+  inset: 0; /* Covers full viewport */
+  background: #080808;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 3rem;
+  
+  /* Z-INDEX LOWER THAN NAVBAR so cord is clickable */
+  z-index: 1999; 
+  
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-20px); /* Subtle drift up */
+  transition: all 0.4s ease-in-out;
+  pointer-events: none;
+  
+  /* Texture */
+  background-image: radial-gradient(rgba(255,255,255,0.05) 1px, transparent 1px);
+  background-size: 30px 30px;
+}
+
+.mobileMenu.menuOpen {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+  pointer-events: all;
+}
+.mobileLink {
+  font-family: 'Stranger Things Outline', serif;
+  font-size: 2.5rem;
+  color: #666;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  transition: all 0.3s;
+  text-transform: uppercase;
+}
+
+.mobileLink:hover {
+  color: var(--stranger-red);
+  transform: scale(1.1);
+  text-shadow: 0 0 20px var(--stranger-red);
+}
+
+.closeHint {
+  margin-top: 2rem;
+  font-size: 0.7rem;
+  color: #444;
+  letter-spacing: 2px;
+  animation: pulseHint 2s infinite;
+}
+
+@keyframes pulseHint {
+  0%, 100% { opacity: 0.5; }
+  50% { opacity: 1; }
+}
+
+/* ---------- RESPONSIVENESS ---------- */
+/* Triggers mobile view sooner to prevent overlap */
+@media (max-width: 900px) {
+  .links { display: none; }
+  .hamburger { display: block; }
+  
+  .navbar { 
+    height: 80px; 
+    padding: 0 1rem;
+    justify-content: space-between; /* Ensures Logo Left, Cord Right */
+  }
+  
+  .container {
+    padding: 0 1rem;
+    width: 100%;
+  }
+
+  .logo { font-size: 1.6rem; }
+}

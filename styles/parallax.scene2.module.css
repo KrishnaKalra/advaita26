@@ -1,0 +1,53 @@
+/* ---------- BACKGROUND ---------- */
+.bgWrap {
+    width: 100%;
+    top: 0%;
+    left: 0%;
+    z-index: 0;
+}
+
+.l0Wrap {
+    width: 100%;
+    bottom: 0%;
+    left: 0%;
+    z-index: 1;
+}
+
+/* ---------- ENVIRONMENT ---------- */
+.l1Wrap {
+    width: 100%;
+    bottom: 0%;
+    right: 0%;
+    z-index: 2;
+}
+
+.l3Wrap {
+    width: 160%;
+    bottom: -30%;
+    left: -30%;
+    z-index: 4;
+}
+
+.l4Wrap {
+    width: 100%;
+    bottom: 0%;
+    left: -0.5%;
+    z-index: 3;
+}
+
+/* ---------- CHARACTER ---------- */
+.l5Wrap {
+    width: 100%;
+    bottom: 0%;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 5;
+}
+
+/* ---------- FOREGROUND ---------- */
+.l6Wrap {
+    width: 160%;
+    left: -30%;
+    bottom: -35%;
+    z-index: 6;
+}

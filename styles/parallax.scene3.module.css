@@ -1,0 +1,150 @@
+/* ---------- BACKGROUND ---------- */
+.s3bgWrap {
+    width: 150%;
+    top: -33%;
+    left: -21%;
+    z-index: 0;
+}
+
+.s3bg2Wrap {
+    width: 150.5%;
+    bottom: -27.5%;
+    left: -21.5%;
+    z-index: 2;
+}
+
+/* ---------- ENVIRONMENT ---------- */
+
+.s3collegeWrap {
+    /* already true via .wrap */
+    z-index: 1;
+    width: 170%;
+    top: -50%;
+    left: -33%;
+    /* 🔑 THIS IS CRITICAL */
+}
+
+.s3ferrisWrap {
+    width: 100%;
+    bottom: -0%;
+    left: 3%;
+    z-index: 2;
+}
+
+.smokeFrontWrap {
+    width: 250%;
+    left: 0%;
+    bottom: 0%;
+    z-index: 2;
+    opacity: 0.12;
+}
+
+.s3buildingWrap {
+    width: 120%;
+    bottom: -15%;
+    right: -67%;
+    transform: translateX(-50%);
+    z-index: 3;
+}
+
+.s3templeWrap {
+    width: 100%;
+    bottom: -2%;
+    left: 55%;
+    transform: translateX(-50%);
+    z-index: 3;
+}
+
+.smokeFrontWrap {
+    width: 250%;
+    left: 0%;
+    bottom: 10%;
+    z-index: 4;
+    opacity: 0.53;
+}
+
+/* ---------- CHARACTER ---------- */
+.s3charWrap {
+    width: 100.2%;
+    bottom: -5%;
+    left: 49.5%;
+    transform: translateX(-50%);
+    z-index: 4;
+}
+
+.smokeMidWrap {
+    width: 120%;
+    left: 0%;
+    bottom: 45%;
+    z-index: 5;
+    opacity: 1;
+}
+
+/* ---------- FOREGROUND ---------- */
+
+.s3fgWrap {
+    width: 135%;
+    right: -18%;
+    bottom: -28%;
+    z-index: 6;
+}
+
+.s3fg0Wrap {
+    width: 140%;
+    left: -25%;
+    bottom: -30%;
+    z-index: 7;
+}
+
+/* Z-Index Sandwiching */
+.smokeBackWrap {
+    width: 200%;
+    left: 0%;
+    bottom: 48%;
+    z-index: 8;
+    opacity: 0.37;
+}
+
+
+/* ---------- TEXT ---------- */
+@font-face {
+    font-family: 'Stranger Things Outline';
+    src: url('/fonts/Stranger Things Outlined.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+.advaitaTextWrap {
+    z-index: 3;
+    /* Behind character (z-index 4) */
+    position: fixed !important;
+    /* Forces it to be relative to viewport */
+    top: 50% !important;
+    left: 50% !important;
+    transform: translate(-50%, -50%) !important;
+    width: auto !important;
+    height: auto !important;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    pointer-events: none;
+}
+
+.advaitaText {
+    font-family: 'Stranger Things Outline', serif;
+    font-size: clamp(4rem, 15vw, 12rem);
+    color: #c41e3a;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    /* Red neon glow stack */
+    text-shadow:
+        0 0 10px rgba(196, 30, 58, 0.8),
+        0 0 20px rgba(196, 30, 58, 0.6),
+        0 0 40px rgba(196, 30, 58, 0.4),
+        0 0 80px rgba(196, 30, 58, 0.2);
+    filter: drop-shadow(0 0 15px rgba(196, 30, 58, 0.5));
+    margin: 0;
+    line-height: 1;
+    white-space: nowrap;
+    opacity: 1;
+}

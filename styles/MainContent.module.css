@@ -1,0 +1,67 @@
+/* mainContent.module.css */
+
+/* ---------- FONTS & VARIABLES ---------- */
+@font-face {
+  font-family: 'Stranger Things Outline';
+  src: url('/fonts/Stranger Things Outlined.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+:root {
+  --stranger-red: #c41e3a;
+  --stranger-glow: #ff0033;
+  --dark-void: #050505;
+  --upside-down-blue: #0a0a1a;
+}
+
+/* --- CUSTOM SCROLLBAR (Webkit only: Chrome, Safari, Edge) --- */
+.wrapper::-webkit-scrollbar {
+  width: 8px;
+}
+
+.wrapper::-webkit-scrollbar-track {
+  background: #050505;
+}
+
+.wrapper::-webkit-scrollbar-thumb {
+  background-color: #333;
+  border-radius: 4px;
+  border: 1px solid #000;
+}
+
+.wrapper::-webkit-scrollbar-thumb:hover {
+  background-color: var(--stranger-red);
+  box-shadow: 0 0 10px var(--stranger-red);
+}
+
+/* ---------- GLOBAL WRAPPER & ATMOSPHERE ---------- */
+.wrapper {
+  background-color: var(--dark-void);
+  color: #e0e0e0;
+  font-family: 'Helvetica Neue', Arial, sans-serif;
+  position: relative;
+  z-index: 20;
+  min-height: 100vh;
+  overflow-x: hidden;
+  box-shadow: 0 -50px 100px #000;
+  cursor: default;
+}
+
+/* CRT Scanline & Grain Overlay */
+.wrapper::before {
+  content: " ";
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  background:
+    linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%),
+    linear-gradient(90deg, rgba(255, 0, 0, 0.06), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.06));
+  z-index: 999;
+  background-size: 100% 2px, 3px 100%;
+  pointer-events: none;
+  opacity: 0.6;
+}

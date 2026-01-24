@@ -1,0 +1,22 @@
+/* Footer.module.css */
+
+.footer {
+    padding: 4rem 2rem;
+    text-align: center;
+    background: #000;
+    color: #666;
+    font-size: 0.8rem;
+    border-top: 1px solid #222;
+    position: relative;
+    z-index: 20;
+}
+
+.footer span {
+    display: inline-block;
+    transition: color 0.3s;
+}
+
+.footer:hover span {
+    color: var(--stranger-red);
+    text-shadow: 0 0 5px var(--stranger-red);
+}

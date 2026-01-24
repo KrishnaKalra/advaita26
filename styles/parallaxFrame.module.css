@@ -1,0 +1,17 @@
+.frameOuter {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    padding: clamp(2rem, 6vw, 6rem) 0;
+}
+
+.frameInner {
+    width: min(100vw, 1200px);
+    aspect-ratio: 3 / 2;
+    position: relative;
+    overflow: hidden;
+
+    /* optional polish */
+    border-radius: 16px;
+    background: black;
+}

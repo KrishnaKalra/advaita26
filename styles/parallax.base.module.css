@@ -1,0 +1,83 @@
+.page {
+    width: 100vw;
+}
+
+/* 3:2 frame */
+.frame {
+    position: relative;
+    width: 100vw;
+    aspect-ratio: 3 / 2;
+    min-height: calc(100vw * 2 / 3);
+    overflow: hidden;
+}
+
+/* Wrapper = POSITION & SIZE */
+.wrap {
+    position: absolute;
+    pointer-events: none;
+}
+
+/* Inner image = ANIMATION TARGET */
+.wrap img {
+    width: 100%;
+    height: auto;
+    will-change: transform;
+}
+
+/* .smokeMidWrap { z-index: 3; bottom: 5%; opacity: 0.4; }
+.smokeFrontWrap { z-index: 8; bottom: -10%; opacity: 1; } */
+
+/* ---------- STATIC FILM GRAIN ---------- */
+
+:global(.grain) {
+    position: fixed;
+    inset: 0;
+    z-index: 9999;
+
+    pointer-events: none;
+
+    background-image: url("/assets/noiseD.webp");
+    background-repeat: repeat;
+    background-size: 800px 800px;
+    mix-blend-mode: multiply;
+
+    /* 🎛 CONTROL GRAIN STRENGTH HERE */
+    opacity: 0;
+}
+
+.stage {
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+  background: radial-gradient(ellipse at center, #1a1a1a 0%, #0a0a0a 100%);
+}
+.layer {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  pointer-events: none;
+  transition: filter 0.3s cubic-bezier(0.4,0,0.2,1);
+}
+.fog {
+  position: absolute;
+  width: 100vw;
+  height: 100vh;
+  top: 0;
+  left: 0;
+  background: url('/assets/fog.png'), linear-gradient(180deg, rgba(40,40,60,0.3) 0%, rgba(10,10,20,0.7) 100%);
+  mix-blend-mode: lighten;
+  opacity: 0.5;
+  pointer-events: none;
+  z-index: 99;
+}
+
+/* Blend mode	Look
+overlay	        Cinematic default (recommended)
+soft-light	    Softer, subtler grain
+multiply	    Darker, grittier
+screen	        Light grain only
+hard-light	    Strong stylized grain */
+
