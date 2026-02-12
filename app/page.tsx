@@ -3,9 +3,11 @@
 import { useState, useEffect } from 'react';
 import SceneManager from '@/components/core/SceneManager';
 import AudioGate from '@/components/core/AudioGate';
+import LoadingScreen from '@/components/core/LoadingScreen';
 import { unlockAudio, registerMusic, playMusic } from '@/components/core/audio';
 
 export default function Page() {
+  const [loadingComplete, setLoadingComplete] = useState(false);
   const [audioReady, setAudioReady] = useState(false);
   const [skipIntro, setSkipIntro] = useState(false);
   const [isMobile, setIsMobile] = useState<boolean | null>(null);
@@ -26,6 +28,7 @@ export default function Page() {
         playMusic('scene3');
         setSkipIntro(true);
         setAudioReady(true);
+        setLoadingComplete(true); // Skip loading screen on mobile for speed
       }
     };
 
@@ -41,17 +44,26 @@ export default function Page() {
     setAudioReady(true);
   };
 
+  const handleLoadingComplete = () => {
+    setLoadingComplete(true);
+  };
+
   // Wait for mobile detection to complete
   if (isMobile === null) {
     return null; // Brief loading state while detecting device
   }
 
-  // Mobile: go directly to main website
+  // Mobile: go directly to main website (Loading skipped above)
   if (isMobile) {
     return <SceneManager skipIntro={true} />;
   }
 
-  // Desktop: show AudioGate first
+  // Desktop: Show Loading Screen First
+  if (!loadingComplete) {
+    return <LoadingScreen onComplete={handleLoadingComplete} />;
+  }
+
+  // Desktop: Then AudioGate
   if (!audioReady) {
     return (
       <AudioGate
