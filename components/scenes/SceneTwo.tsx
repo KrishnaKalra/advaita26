@@ -230,12 +230,12 @@ export default function SceneTwo({
         <main className={base.page}>
             <section ref={frameRef} className={base.frame}>
                 <div className={`${base.wrap} ${styles.bgWrap}`}>
-                    <img src="/assets/scene2/s2bg.webp" className="bg" />
+                    <img src="/assets/scene2/S2bg.webp" className="bg" />
                 </div>
 
                 <div className={`${base.wrap} ${styles.l0Wrap}`}>
                     <img
-                        src="/assets/scene2/s2layer.webp"
+                        src="/assets/scene2/S2layer.webp"
                         className="l0"
                         data-shake="true"
                         data-shake-strength="0.4"
@@ -244,7 +244,7 @@ export default function SceneTwo({
 
                 <div className={`${base.wrap} ${styles.l1Wrap}`}>
                     <img
-                        src="/assets/scene2/s2layer1.webp"
+                        src="/assets/scene2/S2layer1.webp"
                         className="l1"
                         data-shake="true"
                         data-shake-strength="0.4"
@@ -253,7 +253,7 @@ export default function SceneTwo({
 
                 <div className={`${base.wrap} ${styles.l3Wrap}`}>
                     <img
-                        src="/assets/scene2/s2layer3.webp"
+                        src="/assets/scene2/S2layer3.webp"
                         className="l3"
                         data-shake="true"
                         data-shake-strength="0.4"
@@ -262,7 +262,7 @@ export default function SceneTwo({
 
                 <div className={`${base.wrap} ${styles.l4Wrap}`}>
                     <img
-                        src="/assets/scene2/s2layer4.webp"
+                        src="/assets/scene2/S2layer4.webp"
                         className="l4"
                         data-shake="true"
                         data-shake-strength="0.4"
@@ -271,7 +271,7 @@ export default function SceneTwo({
 
                 <div className={`${base.wrap} ${styles.l5Wrap}`}>
                     <img
-                        src="/assets/scene2/s2layer5.webp"
+                        src="/assets/scene2/S2layer5.webp"
                         className="l5"
                         data-shake="true"
                         data-shake-strength="0.4"
@@ -280,7 +280,7 @@ export default function SceneTwo({
 
                 <div className={`${base.wrap} ${styles.l6Wrap}`}>
                     <img
-                        src="/assets/scene2/s2layer6.webp"
+                        src="/assets/scene2/S2layer6.webp"
                         className="l6"
                         data-shake="true"
                         data-shake-strength="0.4"
