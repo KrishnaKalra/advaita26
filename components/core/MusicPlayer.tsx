@@ -28,6 +28,9 @@ export default function MusicPlayer() {
     const [duration, setDuration] = useState(0);
     const [currentTime, setCurrentTime] = useState(0);
 
+    // VU Meter state
+    const [vuLevels, setVuLevels] = useState([0, 0, 0, 0, 0, 0, 0, 0]);
+
     // State for the static glitch effect
     const [isChangingTrack, setIsChangingTrack] = useState(false);
 
@@ -68,7 +71,7 @@ export default function MusicPlayer() {
         hasInitRef.current = true;
     }, [changeTrack]);
 
-    // Sync state with actual audio element
+    // Sync state and simulate VU meter
     useEffect(() => {
         const interval = setInterval(() => {
             const currentTrack = PLAYLIST[currentIndex];
@@ -81,7 +84,14 @@ export default function MusicPlayer() {
                 setDuration(state.duration);
                 setIsPlaying(!state.paused);
 
-                // If the active track in audio.ts is different from our currentIndex, sync it
+                // Simulate VU Meter levels if playing
+                if (!state.paused) {
+                    setVuLevels(prev => prev.map(() => Math.random() * 100));
+                } else {
+                    setVuLevels(prev => prev.map(l => l * 0.8)); // Fade out
+                }
+
+                // Sync track ID
                 const activeId = getActiveTrackId();
                 if (activeId && activeId !== currentTrack.id) {
                     const foundIndex = PLAYLIST.findIndex(t => t.id === activeId);
@@ -90,7 +100,7 @@ export default function MusicPlayer() {
                     }
                 }
             }
-        }, 500);
+        }, 150);
         return () => clearInterval(interval);
     }, [currentIndex]);
 
@@ -138,15 +148,13 @@ export default function MusicPlayer() {
             {/* TV STATIC OVERLAY */}
             <div className={`${styles.staticOverlay} ${isChangingTrack ? styles.activeStatic : ''}`} />
 
-            {/* Liquid Layer (Progress Indicator) */}
-            <div className={styles.liquidContainer} style={{ height: `${progress}%` }}>
-                <div className={styles.liquidBody} />
-            </div>
+            {/* Industrial Chassis Details */}
+            <div className={styles.screw} style={{ top: '8px', left: '8px' }} />
+            <div className={styles.screw} style={{ top: '8px', right: '8px' }} />
+            <div className={styles.screw} style={{ bottom: '8px', left: '8px' }} />
+            <div className={styles.screw} style={{ bottom: '8px', right: '8px' }} />
 
-            {/* Spore Background */}
-            <div className={styles.spores} />
-
-            {/* Cassette Icon Segment */}
+            {/* Cassette Icon Wrap */}
             <div className={styles.iconWrap} onClick={handleToggle}>
                 <div className={`${styles.cassette} ${isPlaying ? styles.spinning : ''}`}>
                     <div className={styles.tapeWindow}>
@@ -160,19 +168,38 @@ export default function MusicPlayer() {
                 </div>
             </div>
 
-            {/* Main Player UI (Visible when expanded) */}
+            {/* Controls Section */}
             <div className={styles.controls}>
+                {/* VU Meter & LED Display Row */}
+                <div className={styles.topDisplay}>
+                    <div className={styles.vuMeter}>
+                        {vuLevels.map((level, i) => (
+                            <div key={i} className={styles.vuBarContainer}>
+                                <div
+                                    className={styles.vuBarFill}
+                                    style={{ height: `${level}%` }}
+                                />
+                            </div>
+                        ))}
+                    </div>
+
+                    <div className={styles.ledDisplay}>
+                        <div className={styles.displayGlow} />
+                        <div className={styles.displayText}>
+                            <span className={styles.trackLabel}>TAPE_0{currentIndex + 1}</span>
+                            <span className={styles.timeLabel}>{formatTime(currentTime)}</span>
+                        </div>
+                    </div>
+                </div>
+
                 <div className={styles.trackInfo}>
                     <div className={styles.titleRow}>
                         <span className={styles.trackName}>{currentTrack.title}</span>
-                        <div className={styles.timeInfo}>
-                            {formatTime(currentTime)} / {formatTime(duration)}
-                        </div>
                     </div>
                     <span className={styles.artistName}>{currentTrack.artist}</span>
                 </div>
 
-                {/* Scrubber Bar */}
+                {/* Scrubber / Tape Progress */}
                 <div
                     className={styles.scrubberContainer}
                     onClick={handleScrub}
@@ -183,21 +210,33 @@ export default function MusicPlayer() {
                     <div className={styles.scrubHandle} style={{ left: `${progress}%` }} />
                 </div>
 
+                {/* Mechanical Buttons Section */}
                 <div className={styles.buttons}>
-                    <button onClick={(e) => { e.stopPropagation(); changeTrack('prev'); }} className={styles.btn}>
-                        <FaStepBackward />
-                    </button>
+                    <div className={styles.btnGroup}>
+                        <button onClick={(e) => { e.stopPropagation(); changeTrack('prev'); }} className={styles.btn}>
+                            <FaStepBackward />
+                            <span className={styles.btnLabel}>REW</span>
+                        </button>
+                    </div>
 
-                    <button onClick={handleToggle} className={`${styles.btn} ${styles.playBtn}`}>
-                        {isPlaying ? <FaPause /> : <FaPlay style={{ marginLeft: '2px' }} />}
-                    </button>
+                    <div className={styles.btnGroup}>
+                        <button onClick={handleToggle} className={`${styles.btn} ${styles.playBtn} ${isPlaying ? styles.btnActive : ''}`}>
+                            {isPlaying ? <FaPause /> : <FaPlay style={{ marginLeft: '2px' }} />}
+                            <span className={styles.btnLabel}>{isPlaying ? 'PAUSE' : 'PLAY'}</span>
+                        </button>
+                    </div>
 
-                    <button onClick={(e) => { e.stopPropagation(); changeTrack('next'); }} className={styles.btn}>
-                        <FaStepForward />
-                    </button>
+                    <div className={styles.btnGroup}>
+                        <button onClick={(e) => { e.stopPropagation(); changeTrack('next'); }} className={styles.btn}>
+                            <FaStepForward />
+                            <span className={styles.btnLabel}>F.FWD</span>
+                        </button>
+                    </div>
                 </div>
             </div>
+
+            {/* Visual Balance/Texture */}
+            <div className={styles.meshTexture} />
         </div>
     );
 }
-
