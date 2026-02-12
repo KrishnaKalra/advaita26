@@ -61,6 +61,7 @@
   position: relative;
   cursor: pointer;
   width: 100%;
+  box-sizing: border-box;
 }
 
 .pin {
@@ -151,23 +152,36 @@
 
 /* RESPONSIVE */
 @media (max-width: 600px) {
+  .wrapper {
+    padding: 40px 15px;
+    height: auto;
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
   .photoBoard {
     grid-template-columns: 1fr;
     gap: 30px;
-    padding: 0;
+    padding: 10px;
+    width: 100%;
+    box-sizing: border-box;
   }
 
   .photoCard {
-    max-width: 400px;
+    max-width: 100%;
     margin: 0 auto;
-  }
-
-  .wrapper {
-    padding: 40px 15px;
   }
 
   .header {
     border-left-width: 3px;
     padding-left: 15px;
+    max-width: 100%;
+    box-sizing: border-box;
+    overflow: hidden;
+  }
+
+  .title {
+    font-size: 1.6rem;
+    letter-spacing: 2px;
   }
 }

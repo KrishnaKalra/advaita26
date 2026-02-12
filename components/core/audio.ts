@@ -127,6 +127,28 @@ export function setTrackEndedCallback(id: string, callback: () => void) {
   }
 }
 
+export function getActiveTrackId() {
+  return activeTrack;
+}
+
+export function getAudioState(id: string) {
+  const track = tracks[id];
+  if (!track) return null;
+  return {
+    currentTime: track.audio.currentTime,
+    duration: track.audio.duration || 0,
+    paused: track.audio.paused,
+    volume: track.audio.volume,
+  };
+}
+
+export function seekMusic(id: string, time: number) {
+  const track = tracks[id];
+  if (track) {
+    track.audio.currentTime = time;
+  }
+}
+
 function fadeTo(
   audio: HTMLAudioElement,
   target: number,

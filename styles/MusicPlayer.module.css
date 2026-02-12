@@ -7,39 +7,46 @@
 
 /* ---------- CONTAINER (The Walkman) ---------- */
 .container {
-  /* Fixed positioning restored (No wrapper needed) */
   position: fixed;
-  bottom: 30px;
-  right: 30px;
-  
-  /* Dimensions */
+  bottom: clamp(15px, 4vh, 30px);
+  right: clamp(15px, 4vw, 30px);
+
   min-height: 60px;
   max-height: 60px;
   width: 60px;
-  
-  /* Appearance */
+
   background: #050505;
-  border: 2px solid #333;
+  border: 1px solid #333;
   border-radius: 35px;
-  
+
   display: flex;
   align-items: center;
-  overflow: hidden; /* Key to hiding controls when collapsed */
-  
-  /* Smooth Expansion Animations */
-  transition: 
-    width 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), /* Bouncy width */
+  overflow: hidden;
+
+  transition:
+    width 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275),
     max-height 0.4s cubic-bezier(0.23, 1, 0.32, 1),
     border-color 0.3s ease,
     box-shadow 0.3s ease,
-    transform 0.3s ease; /* Smooth hover lift */
+    transform 0.3s ease;
 
   z-index: 10000;
   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.8);
   backdrop-filter: blur(10px);
-  
-  /* 3D Perspective for children */
   perspective: 1000px;
+  cursor: pointer;
+}
+
+.container:hover,
+.expanded {
+  width: clamp(280px, 90vw, 360px);
+  max-height: 220px;
+  border-color: var(--stranger-red);
+  background: linear-gradient(135deg, #0a0a0a 0%, #150505 100%);
+  transform: translateY(-5px);
+  box-shadow:
+    0 20px 40px rgba(0, 0, 0, 0.9),
+    0 0 20px rgba(196, 30, 58, 0.3);
 }
 
 /* Texture Overlay */
@@ -48,43 +55,9 @@
   position: absolute;
   inset: 0;
   background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.15'/%3E%3C/svg%3E");
-  opacity: 0.3;
+  opacity: 0.2;
   pointer-events: none;
   z-index: 0;
-}
-
-/* Spore Particles */
-.spores {
-  position: absolute;
-  inset: 0;
-  background-image: 
-    radial-gradient(rgba(255,255,255,0.8) 1px, transparent 1px);
-  background-size: 30px 30px;
-  background-position: 0 0;
-  opacity: 0.1;
-  pointer-events: none;
-  animation: drift 10s linear infinite;
-  z-index: 1;
-}
-
-@keyframes drift {
-  0% { transform: translateY(0); }
-  100% { transform: translateY(-30px); }
-}
-
-/* ---------- HOVER / EXPANDED STATE ---------- */
-.container:hover,
-.expanded {
-  width: 340px;
-  max-height: 200px; /* Unlocks height */
-  border-color: var(--stranger-red);
-  background: linear-gradient(135deg, #0f0f0f 0%, #1a0505 100%);
-  
-  /* STABLE 3D POP - No JS needed */
-  transform: scale(1.02) translateY(-5px);
-  box-shadow: 
-    0 20px 40px rgba(0,0,0,0.9),
-    0 0 20px rgba(196, 30, 58, 0.4);
 }
 
 /* ---------- CASSETTE ICON ---------- */
@@ -97,117 +70,194 @@
   justify-content: center;
   cursor: pointer;
   z-index: 5;
-  border-right: 1px solid rgba(255, 255, 255, 0.1);
-  background: rgba(0,0,0,0.2);
+  border-right: 1px solid rgba(255, 255, 255, 0.05);
+  background: rgba(255, 255, 255, 0.02);
   position: relative;
 }
 
 .cassette {
   position: relative;
-  width: 38px;
-  height: 24px;
-  border: 2px solid #555;
-  border-radius: 3px;
+  width: 40px;
+  height: 26px;
+  border: 1.5px solid #444;
+  border-radius: 2px;
   background: #111;
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 5px;
-  transition: border-color 0.3s;
 }
 
-.container:hover .cassette {
-  border-color: #888;
+.tapeWindow {
+  width: 80%;
+  height: 60%;
+  background: rgba(0, 0, 0, 0.6);
+  border: 1px solid #333;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  padding: 0 4px;
 }
 
-.tapeWheel {
+.reel {
   width: 10px;
   height: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
   border-radius: 50%;
+  position: relative;
+}
+
+.spoke {
+  width: 100%;
+  height: 2px;
   background: #fff;
-  border: 2px solid #fff;
-  background: conic-gradient(transparent 0deg 90deg, #fff 90deg 180deg, transparent 180deg 270deg, #fff 270deg 360deg);
+  position: absolute;
+  top: 50%;
+  margin-top: -1px;
 }
 
-.spinning .tapeWheel {
-  animation: spin 2s linear infinite;
+.spinning .reel {
+  animation: spinReel 1.5s linear infinite;
 }
 
-@keyframes spin {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
+@keyframes spinReel {
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(360deg);
+  }
 }
 
 /* ---------- CONTROLS & TEXT ---------- */
 .controls {
   flex: 1;
-  min-width: 0; /* Prevents layout breaking */
+  min-width: 0;
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  padding: 15px 20px;
-  
-  /* Fade in effect */
+  padding: 15px;
   opacity: 0;
   transform: translateX(10px);
-  filter: blur(5px);
   transition: all 0.4s ease;
   z-index: 5;
 }
 
-.container:hover .controls {
+.container:hover .controls,
+.expanded .controls {
   opacity: 1;
   transform: translateX(0);
-  filter: blur(0);
   transition-delay: 0.1s;
 }
 
 .trackInfo {
+  margin-bottom: 12px;
+}
+
+.titleRow {
   display: flex;
-  flex-direction: column;
-  margin-bottom: 5px;
+  justify-content: space-between;
+  align-items: flex-end;
 }
 
 .trackName {
   font-family: 'ITC Benguiat', serif;
   color: #fff;
   font-size: 1.1rem;
-  letter-spacing: 0.05em;
-  text-shadow: 0 0 5px rgba(196, 30, 58, 0.8);
+  text-shadow: 0 0 5px rgba(196, 30, 58, 0.6);
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+  flex: 1;
+}
+
+.timeInfo {
+  font-family: monospace;
+  font-size: 0.65rem;
+  color: #666;
+  margin-left: 10px;
+  margin-bottom: 2px;
 }
 
 .artistName {
-  font-size: 0.75rem;
+  display: block;
+  font-size: 0.7rem;
   color: #888;
   text-transform: uppercase;
   letter-spacing: 1px;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
   margin-top: 2px;
+}
+
+/* ---------- SCRUBBER ---------- */
+.scrubberContainer {
+  height: 20px;
+  width: 100%;
+  position: relative;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  margin: 5px 0;
+}
+
+.scrubberBg {
+  height: 3px;
+  width: 100%;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 2px;
+  position: absolute;
+}
+
+.scrubFill {
+  height: 3px;
+  background: var(--stranger-red);
+  box-shadow: 0 0 10px var(--stranger-red);
+  border-radius: 2px;
+  position: absolute;
+  transition: width 0.1s linear;
+}
+
+.scrubHandle {
+  width: 10px;
+  height: 10px;
+  background: #fff;
+  border-radius: 50%;
+  position: absolute;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  opacity: 0;
+  transition: opacity 0.2s, background 0.2s;
+  box-shadow: 0 0 5px #fff;
+}
+
+.scrubberContainer:hover .scrubHandle {
+  opacity: 1;
+}
+
+.scrubFill::after {
+  content: '';
+  position: absolute;
+  right: -5px;
+  top: -5px;
+  width: 14px;
+  height: 14px;
 }
 
 /* ---------- BUTTONS ---------- */
 .buttons {
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: center;
+  gap: 30px;
   width: 100%;
-  margin-top: 8px;
-  border-top: 1px solid rgba(255, 255, 255, 0.1);
-  padding-top: 8px;
+  margin-top: 5px;
 }
 
 .btn {
   background: transparent;
   border: none;
-  color: #666;
+  color: #777;
   cursor: pointer;
-  font-size: 1.2rem;
-  padding: 5px;
+  font-size: 1rem;
+  padding: 8px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -216,136 +266,109 @@
 
 .btn:hover {
   color: #fff;
-  transform: scale(1.2);
-  text-shadow: 0 0 5px #fff;
+  transform: scale(1.1);
 }
 
 .playBtn {
   color: #eee;
-  font-size: 1.4rem;
+  font-size: 1.3rem;
+  background: rgba(196, 30, 58, 0.15);
+  border-radius: 50%;
+  width: 45px;
+  height: 45px;
 }
 
 .playBtn:hover {
-  color: var(--stranger-red);
-  text-shadow: 0 0 10px var(--stranger-red);
+  background: rgba(196, 30, 58, 0.3);
+  color: #fff;
 }
 
-/* Red Progress Line at bottom */
-.progressBar {
+/* ---------- ATMOSPHERE ---------- */
+.spores {
   position: absolute;
-  bottom: 0;
-  left: 0;
-  height: 2px;
-  background: var(--stranger-red);
-  box-shadow: 0 0 8px var(--stranger-red);
-  width: 100%;
-  animation: pulseBar 2s infinite;
-  opacity: 0.8;
+  inset: 0;
+  background-image: radial-gradient(rgba(255, 255, 255, 0.4) 1px, transparent 1px);
+  background-size: 40px 40px;
+  opacity: 0.1;
+  pointer-events: none;
+  animation: bgDrift 20s linear infinite;
 }
 
-@keyframes pulseBar {
-  0% { opacity: 0.5; }
-  50% { opacity: 1; }
-  100% { opacity: 0.5; }
+@keyframes bgDrift {
+  from {
+    background-position: 0 0;
+  }
+
+  to {
+    background-position: 40px 40px;
+  }
 }
 
-/* --- ADD TO THE BOTTOM OF MusicPlayer.module.css --- */
-
-/* The Container for the Liquid */
 .liquidContainer {
   position: absolute;
   bottom: 0;
   left: 0;
   width: 100%;
-  /* Height is controlled by JS (0% to 100%) */
-  height: 0%; 
-  z-index: 0; /* Behind text/controls */
-  transition: height 0.5s linear;
+  z-index: 1;
   pointer-events: none;
+  transition: height 0.6s cubic-bezier(0.1, 0.1, 0.2, 1);
 }
 
-/* The Red Liquid Body */
 .liquidBody {
   width: 100%;
   height: 100%;
-  background: linear-gradient(to top, rgba(100, 0, 0, 0.9), rgba(196, 30, 58, 0.6));
-  box-shadow: 0 0 20px rgba(196, 30, 58, 0.5);
+  background: linear-gradient(to top, rgba(120, 0, 0, 0.15), rgba(196, 30, 58, 0.05));
   position: relative;
 }
 
-/* The Wavy Surface Animation */
-.liquidBody::before,
-.liquidBody::after {
-  content: "";
-  position: absolute;
-  /* Position slightly above the fill line to create the surface */
-  top: -10px; 
-  left: 50%;
-  width: 200%;
-  height: 200%;
-  border-radius: 40%;
-  background: rgba(196, 30, 58, 0.4);
-  transform: translateX(-50%);
-  animation: waveRotate 6s linear infinite;
-}
-
-/* Second wave layer (faster, lighter) for depth */
-.liquidBody::after {
-  border-radius: 35%;
-  background: rgba(255, 50, 50, 0.2);
-  top: -15px;
-  animation: waveRotate 4s linear infinite reverse;
-}
-
-@keyframes waveRotate {
-  0% { transform: translateX(-50%) rotate(0deg); }
-  100% { transform: translateX(-50%) rotate(360deg); }
-}
-
-/* Ensure controls sit ABOVE the liquid */
-.controls, .iconWrap, .spores {
-  z-index: 2; 
-  position: relative;
-}
-
-/* --- ADD THIS TO THE BOTTOM OF THE FILE --- */
-
-/* 1. GLASS GLARE (Makes it look 3D) */
-/* This creates a shine on the top-left to mimic a curved glass surface */
-.container::after {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 45%; /* Top half only */
-  background: linear-gradient(to bottom, rgba(255, 255, 255, 0.15) 0%, transparent 100%);
-  border-radius: 30px 30px 50% 50%; /* Curved bottom edge */
-  pointer-events: none;
-  z-index: 20; /* On top of everything */
-}
-
-/* 2. TV STATIC OVERLAY */
+/* Static Flash */
 .staticOverlay {
   position: absolute;
   inset: 0;
   background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='1.5' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='1'/%3E%3C/svg%3E");
   opacity: 0;
+  z-index: 30;
   pointer-events: none;
-  z-index: 30; /* Highest layer */
   mix-blend-mode: hard-light;
-  transition: opacity 0.1s;
 }
 
-/* When active, flash the static */
 .activeStatic {
-  opacity: 0.8;
-  animation: staticFlash 0.3s steps(3) infinite;
+  opacity: 0.5;
+  animation: staticGlitch 0.3s steps(3) infinite;
 }
 
-@keyframes staticFlash {
-  0% { transform: scale(1) translateX(0); filter: brightness(1); }
-  33% { transform: scale(1.05) translateX(2px); filter: brightness(3) contrast(5); }
-  66% { transform: scale(0.95) translateX(-2px); filter: brightness(0.5); }
-  100% { transform: scale(1) translateX(0); }
+@keyframes staticGlitch {
+  0% {
+    transform: scale(1);
+  }
+
+  50% {
+    transform: scale(1.1) rotate(0.5deg);
+    opacity: 0.3;
+  }
+
+  100% {
+    transform: scale(1);
+  }
+}
+
+/* ---------- MOBILE OVERRIDES ---------- */
+@media (max-width: 480px) {
+  .container {
+    right: 15px;
+    bottom: 20px;
+  }
+
+  .container.expanded {
+    width: calc(100vw - 30px);
+    right: 15px;
+  }
+
+  .buttons {
+    gap: 20px;
+  }
+
+  .trackName {
+    font-size: 0.95rem;
+  }
 }
