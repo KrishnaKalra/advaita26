@@ -3,19 +3,19 @@
 .wrapper {
   min-height: 120vh;
   background-color: #080808;
-  background-image: 
+  background-image:
     radial-gradient(#1a1a1a 1px, transparent 1px),
     linear-gradient(to bottom, #050505, #000);
   background-size: 40px 40px, 100% 100%;
-  padding: 100px 5%;
+  padding: clamp(60px, 10vw, 100px) 5%;
   position: relative;
   overflow: hidden;
 }
 
 .header {
-  margin-bottom: 80px;
+  margin-bottom: clamp(40px, 8vw, 80px);
   border-left: 4px solid #ff4400;
-  padding-left: 30px;
+  padding-left: clamp(15px, 3vw, 30px);
 }
 
 .folderTab {
@@ -32,9 +32,10 @@
 .title {
   font-family: 'Courier New', Courier, monospace;
   color: #fff;
-  font-size: 3rem;
-  letter-spacing: 5px;
+  font-size: clamp(1.8rem, 6vw, 3.5rem);
+  letter-spacing: clamp(2px, 1vw, 5px);
   margin: 0;
+  line-height: 1.1;
 }
 
 .subtitle {
@@ -47,18 +48,19 @@
 /* THE PHOTO BOARD GRID */
 .photoBoard {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-  gap: 50px;
-  padding: 20px;
+  grid-template-columns: repeat(auto-fill, minmax(clamp(250px, 40vw, 320px), 1fr));
+  gap: clamp(20px, 4vw, 50px);
+  padding: 10px;
   perspective: 1000px;
 }
 
 .photoCard {
   background: #d9d9d9;
-  padding: 12px 12px 45px 12px;
-  box-shadow: 10px 10px 25px rgba(0,0,0,0.5);
+  padding: 12px 12px clamp(35px, 5vw, 45px) 12px;
+  box-shadow: 10px 10px 25px rgba(0, 0, 0, 0.5);
   position: relative;
   cursor: pointer;
+  width: 100%;
 }
 
 .pin {
@@ -70,7 +72,7 @@
   height: 12px;
   background: #ff0000;
   border-radius: 50%;
-  box-shadow: 0 2px 5px rgba(0,0,0,0.5), inset 0 -2px 2px rgba(0,0,0,0.3);
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5), inset 0 -2px 2px rgba(0, 0, 0, 0.3);
   z-index: 2;
 }
 
@@ -98,7 +100,7 @@
 .vignette {
   position: absolute;
   inset: 0;
-  box-shadow: inset 0 0 50px rgba(0,0,0,0.6);
+  box-shadow: inset 0 0 50px rgba(0, 0, 0, 0.6);
   pointer-events: none;
 }
 
@@ -117,7 +119,7 @@
   font-family: 'Courier New', Courier, monospace;
   color: #222;
   font-weight: bold;
-  font-size: 0.9rem;
+  font-size: clamp(0.8rem, 1.2vw, 0.95rem);
   margin: 5px 0 0 0;
   text-transform: uppercase;
 }
@@ -134,15 +136,38 @@
   opacity: 0.3;
   animation: scan 8s linear infinite;
   pointer-events: none;
+  z-index: 100;
 }
 
 @keyframes scan {
-  0% { top: 0%; }
-  100% { top: 100%; }
+  0% {
+    top: 0%;
+  }
+
+  100% {
+    top: 100%;
+  }
 }
 
 /* RESPONSIVE */
-@media (max-width: 768px) {
-  .photoBoard { grid-template-columns: 1fr 1fr; gap: 20px; }
-  .title { font-size: 1.8rem; }
+@media (max-width: 600px) {
+  .photoBoard {
+    grid-template-columns: 1fr;
+    gap: 30px;
+    padding: 0;
+  }
+
+  .photoCard {
+    max-width: 400px;
+    margin: 0 auto;
+  }
+
+  .wrapper {
+    padding: 40px 15px;
+  }
+
+  .header {
+    border-left-width: 3px;
+    padding-left: 15px;
+  }
 }

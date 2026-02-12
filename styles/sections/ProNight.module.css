@@ -9,14 +9,14 @@
   justify-content: center;
   position: relative;
   overflow: hidden;
-  padding: 40px;
+  padding: clamp(1rem, 5vw, 40px);
 }
 
 .scanlineOverlay {
   position: absolute;
   inset: 0;
   background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%),
-              linear-gradient(90deg, rgba(255, 0, 0, 0.03), rgba(0, 255, 0, 0.01), rgba(0, 0, 255, 0.03));
+    linear-gradient(90deg, rgba(255, 0, 0, 0.03), rgba(0, 255, 0, 0.01), rgba(0, 0, 255, 0.03));
   background-size: 100% 4px, 3px 100%;
   pointer-events: none;
   z-index: 10;
@@ -27,7 +27,7 @@
   grid-template-columns: 300px 1fr;
   width: 100%;
   max-width: 1400px;
-  height: 80vh;
+  min-height: 80vh;
   border: 2px solid #222;
   background: #0a0a0a;
 }
@@ -35,7 +35,7 @@
 /* SIDEBAR STYLING */
 .sidebar {
   border-right: 2px solid #222;
-  padding: 30px;
+  padding: clamp(20px, 4vw, 30px);
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -47,10 +47,18 @@
   font-size: 0.8rem;
   color: #ff0000;
   letter-spacing: 2px;
+  margin-bottom: 20px;
 }
 
-.blink { animation: blink 1s infinite; }
-@keyframes blink { 50% { opacity: 0; } }
+.blink {
+  animation: blink 1s infinite;
+}
+
+@keyframes blink {
+  50% {
+    opacity: 0;
+  }
+}
 
 .artistList {
   display: flex;
@@ -70,10 +78,19 @@
   gap: 15px;
   transition: 0.3s;
   font-family: 'Courier New', monospace;
+  width: 100%;
 }
 
-.navId { font-weight: bold; font-size: 0.7rem; }
-.navName { font-size: 0.9rem; letter-spacing: 1px; }
+.navId {
+  font-weight: bold;
+  font-size: 0.7rem;
+}
+
+.navName {
+  font-size: 0.9rem;
+  letter-spacing: 1px;
+  flex: 1;
+}
 
 .activeNav {
   border-color: #ff0000;
@@ -86,13 +103,14 @@
   font-size: 0.6rem;
   color: #333;
   font-family: monospace;
+  margin-top: 20px;
 }
 
 /* VIEWER STYLING */
 .viewer {
   position: relative;
   background: #000;
-  padding: 60px;
+  padding: clamp(20px, 6vw, 60px);
   overflow: hidden;
 }
 
@@ -100,47 +118,56 @@
   height: 100%;
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 60px;
+  gap: clamp(30px, 5vw, 60px);
   align-items: center;
 }
 
 /* Viewfinder Graphics */
 .viewfinder {
   position: absolute;
-  inset: 40px;
+  inset: 20px;
   pointer-events: none;
   z-index: 5;
 }
 
 .cornerTL {
   position: absolute;
-  top: 0; left: 0;
-  width: 40px; height: 40px;
-  border-top: 2px solid #fff; border-left: 2px solid #fff;
+  top: 0;
+  left: 0;
+  width: 30px;
+  height: 30px;
+  border-top: 2px solid #fff;
+  border-left: 2px solid #fff;
 }
 
 .cornerBR {
   position: absolute;
-  bottom: 0; right: 0;
-  width: 40px; height: 40px;
-  border-bottom: 2px solid #fff; border-right: 2px solid #fff;
+  bottom: 0;
+  right: 0;
+  width: 30px;
+  height: 30px;
+  border-bottom: 2px solid #fff;
+  border-right: 2px solid #fff;
 }
 
 .centerAim {
   position: absolute;
-  top: 50%; left: 50%;
-  width: 20px; height: 20px;
-  border: 1px solid rgba(255,255,255,0.3);
+  top: 50%;
+  left: 50%;
+  width: 20px;
+  height: 20px;
+  border: 1px solid rgba(255, 255, 255, 0.3);
   transform: translate(-50%, -50%);
 }
 
 /* Image Container */
 .imageContainer {
   position: relative;
-  height: 100%;
-  max-height: 500px;
+  width: 100%;
+  aspect-ratio: 4/5;
   border: 1px solid #333;
   overflow: hidden;
+  max-height: 600px;
 }
 
 .artistImg {
@@ -166,7 +193,7 @@
 .infoPanel {
   display: flex;
   flex-direction: column;
-  gap: 25px;
+  gap: 20px;
 }
 
 .typeTag {
@@ -180,15 +207,16 @@
 
 .artistTitle {
   font-family: 'Courier New', monospace;
-  font-size: 3rem;
-  letter-spacing: 5px;
+  font-size: clamp(1.8rem, 5vw, 3rem);
+  letter-spacing: clamp(2px, 1vw, 5px);
   margin: 0;
   text-shadow: 2px 2px #ff0000;
+  line-height: 1.1;
 }
 
 .detailsGrid {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
   gap: 20px;
   border-top: 1px solid #222;
   padding-top: 25px;
@@ -204,7 +232,7 @@
 
 .detailItem p {
   font-family: monospace;
-  font-size: 1rem;
+  font-size: clamp(0.9rem, 1.5vw, 1.1rem);
   color: #ccc;
   margin: 0;
 }
@@ -216,13 +244,13 @@
 
 .description {
   font-family: 'Courier New', monospace;
-  font-size: 0.85rem;
+  font-size: clamp(0.75rem, 1.5vw, 0.85rem);
   line-height: 1.6;
   color: #888;
 }
 
 .intelBtn {
-  margin-top: 20px;
+  margin-top: 10px;
   background: transparent;
   border: 1px solid #fff;
   color: #fff;
@@ -231,6 +259,7 @@
   font-family: monospace;
   font-weight: bold;
   transition: 0.3s;
+  width: fit-content;
 }
 
 .intelBtn:hover {
@@ -238,10 +267,99 @@
   color: #000;
 }
 
-/* Mobile responsive */
+/* RESPONSIVE BREAKPOINTS */
 @media (max-width: 1024px) {
-  .container { grid-template-columns: 1fr; height: auto; }
-  .sidebar { border-right: none; border-bottom: 2px solid #222; }
-  .slide { grid-template-columns: 1fr; }
-  .imageContainer { height: 300px; }
+  .container {
+    grid-template-columns: 1fr;
+    height: auto;
+    min-height: auto;
+  }
+
+  .sidebar {
+    border-right: none;
+    border-bottom: 2px solid #222;
+    flex-direction: row;
+    align-items: center;
+    gap: 20px;
+    padding: 15px 20px;
+  }
+
+  .sidebarHeader,
+  .sidebarFooter {
+    display: none;
+  }
+
+  .artistList {
+    flex-direction: row;
+    overflow-x: auto;
+    padding-bottom: 5px;
+    flex: 1;
+    scrollbar-width: none;
+  }
+
+  .artistList::-webkit-scrollbar {
+    display: none;
+  }
+
+  .navBtn {
+    white-space: nowrap;
+    width: auto;
+    padding: 10px 15px;
+  }
+
+  .navId {
+    display: none;
+  }
+
+  .slide {
+    grid-template-columns: 1fr;
+    gap: 30px;
+  }
+
+  .imageContainer {
+    aspect-ratio: 16/9;
+    max-height: 400px;
+  }
+
+  .viewer {
+    padding: 40px 20px;
+  }
+}
+
+@media (max-width: 600px) {
+  .wrapper {
+    padding: 0.5rem;
+  }
+
+  .container {
+    border: none;
+    background: transparent;
+  }
+
+  .sidebar {
+    background: #050505;
+    border-bottom: 1px solid #222;
+    padding: 10px;
+  }
+
+  .navBtn {
+    font-size: 0.75rem;
+  }
+
+  .artistTitle {
+    letter-spacing: 2px;
+  }
+
+  .detailsGrid {
+    gap: 15px;
+  }
+
+  .intelBtn {
+    width: 100%;
+    text-align: center;
+  }
+
+  .imageContainer {
+    aspect-ratio: 4/3;
+  }
 }

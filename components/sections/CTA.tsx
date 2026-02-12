@@ -32,14 +32,14 @@ export default function CTA() {
     <section className={styles.wrapper}>
       {/* Background Dust/Ash Particles */}
       <div className={styles.ashOverlay} />
-      
+
       <div className={styles.cabinetContainer} ref={containerRef}>
         <div className={styles.bezel}>
           <div className={styles.screen}>
             {/* CRT VFX */}
             <div className={styles.scanlines} />
             <div className={styles.vhsGlitch} />
-            
+
             <div className={styles.content}>
               <div className={styles.terminalHeader}>
                 <div className={styles.blinkingLight} />
@@ -68,7 +68,7 @@ export default function CTA() {
                     {['ACCOMODATION', 'RULEBOOK', 'BROCHURE', 'REGISTER'].map((text, i) => (
                       <div key={i} className={styles.btnHousing}>
                         <label className={styles.btnLabel}>FUNC_{i + 1}</label>
-                        <button 
+                        <button
                           className={`${styles.tactileBtn} ${text === 'REGISTER' ? styles.danger : ''}`}
                           onMouseEnter={() => setActiveBtn(i)}
                           onMouseLeave={() => setActiveBtn(null)}
@@ -79,7 +79,7 @@ export default function CTA() {
                       </div>
                     ))}
                   </div>
-                  
+
                   {/* Decorative Elements */}
                   <div className={styles.ventilation}>
                     <div className={styles.grill} />
@@ -90,7 +90,9 @@ export default function CTA() {
 
               <div className={styles.bottomBar}>
                 <div className={styles.warningTicker}>
-                  CAUTION: DIMENSIONAL GATE STABILITY AT 14%... PROCEED WITH EXTREME VIGILANCE... 
+                  <div className={styles.tickerContent}>
+                    CAUTION: DIMENSIONAL GATE STABILITY AT 14%... PROCEED WITH EXTREME VIGILANCE... CAUTION: DIMENSIONAL GATE STABILITY AT 14%... PROCEED WITH EXTREME VIGILANCE...
+                  </div>
                 </div>
               </div>
             </div>
