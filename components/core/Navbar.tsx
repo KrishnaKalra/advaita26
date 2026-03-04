@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react';
 import { useRouter, usePathname } from 'next/navigation';
 import styles from '@/styles/Navbar.module.css';
 import { useAccessibility } from './internal/AccessibilityProvider';
+import Link from 'next/link';
 
 export default function Navbar() {
     const [scrolled, setScrolled] = useState(false);
@@ -105,7 +106,7 @@ export default function Navbar() {
                             <div className={styles.bulb} />
                             <div className={styles.lightCone} />
                             {/* LINKED TO EVENTS PAGE */}
-                            <button onClick={() => handleNavClick('events', true)} className={styles.link}>Events</button>
+                            <button  className={styles.link}><Link href="/events">Events</Link></button>
                         </div>
                         <div className={styles.linkWrapper}>
                             <div className={styles.bulb} />
@@ -167,7 +168,7 @@ export default function Navbar() {
             {/* MOBILE MENU */}
             <div className={`${styles.mobileMenu} ${menuOpen ? styles.menuOpen : ''}`}>
                 <button onClick={() => handleNavClick('top')} className={styles.mobileLink}>Home</button>
-                <button onClick={() => handleNavClick('events', true)} className={styles.mobileLink}>The Events</button>
+                <button onClick={() => handleNavClick('events', true)} className={styles.mobileLink}><Link href="/events">The Events</Link></button>
                 <button onClick={() => handleNavClick('merch', true)} className={styles.mobileLink}>Merch</button>
                 <button onClick={() => handleNavClick('passes')} className={styles.mobileLink}>Passes</button>
                 <button onClick={() => handleNavClick('register')} className={styles.mobileLink}>Register</button>

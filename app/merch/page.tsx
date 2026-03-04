@@ -23,9 +23,10 @@ export default function MerchPage() {
     }, []);
 
     const merchItems = [
-        { id: 1, title: "Advaita '26 Classic Tee", image: "/assets/merch/web-1.gif" },
-        { id: 2, title: "Hellfire Club Edition", image: "/assets/merch/web-2.gif" },
-        { id: 3, title: "Upside Down Hoodie", image: "/assets/merch/web-3.gif" },
+        { id: 1, title: "Advaita '26 Classic Tee", image: "/assets/merch/web-1.gif",link:"https://konfhub.com/checkout/advaita2026?ticketId=8088"},
+        { id: 2, title: "WSQK Edition", image: "/assets/merch/web-2.gif" ,link:"https://konfhub.com/checkout/advaita2026?ticketId=80882"},
+        { id: 3, title: "Hellfire Club Hoodie", image: "/assets/merch/web-3.gif",link:"https://konfhub.com/checkout/advaita2026?ticketId=80648"
+},
     ];
 
     return (
@@ -54,6 +55,7 @@ export default function MerchPage() {
 
                     <div className={styles.merchGrid}>
                         {merchItems.map((item) => (
+                            <Link href={item.link} target="_blank" rel="noopener noreferrer" >
                             <div key={item.id} className={styles.merchItem}>
                                 <div className={styles.imageWrapper}>
                                     <Image
@@ -67,6 +69,7 @@ export default function MerchPage() {
                                 </div>
                                 <h3 className={styles.merchTitle}>{item.title}</h3>
                             </div>
+                            </Link>
                         ))}
                     </div>
 
