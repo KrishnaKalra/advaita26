@@ -23,7 +23,7 @@ export default function MerchPage() {
     }, []);
 
     const merchItems = [
-        { id: 1, title: "Advaita '26 Classic T-Shirt", image: "/assets/merch/web-1.gif",link:"https://konfhub.com/checkout/advaita2026?ticketId=8088"},
+        { id: 1, title: "Last Strange Adventure T-Shirt", image: "/assets/merch/web-1.gif",link:"https://konfhub.com/checkout/advaita2026?ticketId=8088"},
         { id: 2, title: "WSQK Edition T-Shirt", image: "/assets/merch/web-2.gif" ,link:"https://konfhub.com/checkout/advaita2026?ticketId=80882"},
         { id: 3, title: "Hellfire Club Sweatshirt", image: "/assets/merch/web-3.gif",link:"https://konfhub.com/checkout/advaita2026?ticketId=80648"
 },
